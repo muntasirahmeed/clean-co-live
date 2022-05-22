@@ -1,14 +1,40 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const Navber = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
+  const { pathname } = useLocation();
+  const [admin] = useAdmin();
+
   return (
     <div class="drawer drawer-end " data-theme={isDark ? "light" : "dark"}>
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col">
         {/* <!-- Navbar --> */}
-        <div class="w-full navbar fixed top-0 bg-base-100  z-50">
+        <div class="w-full navbar bg-base-100 fixed top-0 z-50">
+          {pathname.includes("/dashboard") && (
+            <label
+              for="my-drawer-2"
+              tabindex="0"
+              class="btn btn-ghost btn-circle lg:hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </label>
+          )}
           <div class="flex-1  text-2xl font-semibold">Clean.Co</div>
           <div class="flex-none lg:hidden">
             <label for="my-drawer-3" class="btn btn-square btn-ghost">
@@ -35,6 +61,13 @@ const Navber = ({ children }) => {
                   Home
                 </NavLink>
               </li>
+              {admin && (
+                <li>
+                  <NavLink className="rounded-lg " to="/dashboard/add-service">
+                    Dashboard
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <NavLink className="rounded-lg" to="/services">
                   Services
@@ -99,13 +132,18 @@ const Navber = ({ children }) => {
         {/* <!-- Page content here --> */}
         {children}
       </div>
-      <div class="drawer-side">
+      <div class="drawer-side mt-16">
         <label for="my-drawer-3" class="drawer-overlay"></label>
         <ul class="menu p-4 overflow-y-auto w-52 space-y-2 bg-base-100">
           {/* <!-- Sidebar content here --> */}
           <li>
             <NavLink className="rounded-lg " to="/">
               Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="rounded-lg " to="/dashboard">
+              Dashboard
             </NavLink>
           </li>
           <li>

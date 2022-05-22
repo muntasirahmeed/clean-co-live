@@ -26,7 +26,7 @@ const Login = () => {
               class="input input-bordered"
             />
             <label class="label">
-              <a href="#" class="label-text-alt link link-hover">
+              <a href="#a" class="label-text-alt link link-hover">
                 Forgot password?
               </a>
             </label>

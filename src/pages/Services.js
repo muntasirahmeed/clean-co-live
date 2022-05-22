@@ -1,11 +1,17 @@
-import React from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import fetcher from "../api";
 
 const Services = () => {
-    return (
-        <div>
-            Services
-        </div>
-    );
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetcher.get("/service");
+      setServices(res.data);
+    })();
+  }, []);
+  return <div>Services</div>;
 };
 
 export default Services;
